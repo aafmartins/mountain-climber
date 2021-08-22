@@ -1,0 +1,74 @@
+/*
+FONT FAMILIES
+font-family: 'Rampart One', cursive;
+font-family: 'Roboto', sans-serif;*/
+
+body {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: rgb(64, 63, 63);
+}
+
+textPath {
+  font-size: 2.5rem;
+  font-family: "Rampart One", cursive;
+  font-weight: 900;
+  text-transform: uppercase;
+  fill: orangered;
+}
+
+path {
+  fill: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.logo-img {
+  position: absolute;
+  top: 23vw;
+  left: calc((100% - 40vw) / 2);
+  width: 40vw;
+  z-index: 1;
+}
+
+#game-intro button {
+  background-color: orangered;
+  font-weight: 900;
+  color: rgb(238, 230, 218);
+  padding: 1rem 2rem;
+  border: 0;
+  box-shadow: 0;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+  font-size: 1.4rem;
+}
+
+#game-intro p {
+  padding: 2rem;
+  margin-bottom: 0;
+}
+
+#keyboard {
+  display: flex;
+  justify-content: center;
+  font-family: "Rampart One", cursive;
+  font-size: 2.5rem;
+}
+
+#arrow-up-down {
+  transform: rotate(90deg);
+  margin-left: 0.9rem;
+  margin-top: 0.3rem;
+  color: rgba(64, 63, 63, 0.5);
+  }
+
+.arrow-highlight {
+  color: orangered;
+}
+
+/*#game-board {
+  float: left;
+  padding: 20px 0px;
+}*/
