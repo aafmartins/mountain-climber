@@ -30,7 +30,7 @@ Let's climb!
   when player is hit
   when player looses
   when player wins
-  when player catches a bonus (see below)
+  when player catches a bonus component
 - Add foreground trees which disappear as the climber 'goes up'
 - Add name prompt to splash page
 - Add personalization throughout the game
