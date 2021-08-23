@@ -24,36 +24,36 @@ class Game {
     );
     //Obstacles
     this.obstacleArray = [];
-    this.score = {
-      points: 0,
-    };
+    this.setObstacleInterval();
+    this.score = { points: 0 };
     //Collision
-    this.collision;
+    //this.collision;
     this.numberOfCollisions = 0;
   }
 
   setObstacleInterval() {
-    this.obstacleId = setInterval( () => {
+    this.obstacleId = setInterval(() => {
       const obstacle = new Obstacle(
         this.ctx,
-        Math.random() * this.canvas.width - 100, // position x
+        Math.random() * (this.canvas.width - 200), // position x
         0, //position y - objects will be coming from top of canvas
         Math.random() * 60 + 60, //width
         Math.random() * 60 + 60, //height
         Math.ceil(Math.random() * 2) //speed
       );
       this.obstacleArray.push(obstacle);
-    }, 1500);
+    }, 5 * 1000);
   }
 
-  checkCollision() {
-    this.collision =
-      this.player.x < this.obstacle.x + this.obstacle.width && //check the right side of the car
-      this.player.x + this.player.width > this.obstacle.x &&
-      this.player.y < this.obstacle.y + this.obstacle.height &&
-      this.player.y + this.player.height > this.obstacle.y;
+  checkCollision(player, obstacle, obstacleArray) {
+    let collision =
+      player.x < obstacle.x + obstacle.width && //check that the left of the player intersects the right side of the obstacle
+      player.x + player.width > obstacle.x && // check that the right of the player intersects with teh left of the obstacle
+      player.y < obstacle.y + obstacle.height &&
+      player.y + player.height > obstacle.y;
 
-    if (this.collision) {
+    if (collision) {
+      this.obstacleArray.splice(obstacle);
       this.numberOfCollisions += 1;
     }
 
@@ -65,8 +65,8 @@ class Game {
       this.gameOverState.style.display = "block";
     }
 
-    //Increment  score if no collision
-    if (!this.collision) {
+    //Increment score if no collision
+    if (!collision) {
       this.score.points += 5;
     }
   }
@@ -74,8 +74,6 @@ class Game {
   gameStart() {
     //Create a loop to animate the game
     this.frameId = requestAnimationFrame(this.gameStart.bind(this));
-    //Check if the game is working
-    console.log("The game is working, WOO!");
 
     //1-Clear the canvas
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -84,14 +82,11 @@ class Game {
     this.background.drawLoop();
     this.player.draw();
 
-    this.setObstacleInterval();
-
     //3-Loop through the obstacle array and move every obstacle
     this.obstacleArray.forEach((eachObstacle) => {
-      console.log('where are my obstacles')
       eachObstacle.draw();
       eachObstacle.move();
-      this.checkCollision(this.player, eachObstacle);
+      this.checkCollision(this.player, eachObstacle, this.obstacleArray);
     });
   }
 }
