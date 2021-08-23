@@ -18,31 +18,31 @@ class Game {
     this.player = new Player(
       this.ctx,
       this.canvas.width / 2 - 25,
-      this.canvas.height - 100,
-      50,
-      100
+      this.canvas.height - 150,
+      80,
+      150
     );
     //Obstacles
     this.obstacleArray = [];
+    this.obstacle = new Obstacle(
+      this.ctx,
+      Math.random() * this.canvas.width - 100, // position x
+      0, //postion y - objects will be coming from top of canvas
+      Math.random() * 60 + 60, //widtth
+      Math.random() * 60 + 60, //height
+      Math.ceil(Math.random() * 2) //speed
+    );
     this.score = {
       points: 0,
     };
-    this.obstacle = null;
     //Collision
     this.collision;
     this.numberOfCollisions = 0;
   }
 
-  drawObstacles() {
+  setObstacleInterval() {
     this.obstacleId = setInterval(function () {
-      this.obstacle = new Obstacle(
-        this.ctx,
-        Math.random() * this.canvas.width - 200, //position x
-        0, //postion y - objects will be coming from top of canvas
-        Math.random() * 50 + 100, //widtth
-        Math.random() * 15 + 10, //height
-        Math.ceil(Math.random() * 2) //speed
-      );
+      this.obstacle;
       this.obstacleArray.push(this.obstacle);
     }, 1500);
   }
@@ -74,7 +74,7 @@ class Game {
 
   gameStart() {
     //Create a loop to animate the game
-    this.frameId = requestAnimationFrame(this.gameStart);
+    this.frameId = requestAnimationFrame(this.gameStart.bind(this));
     //Check if the game is working
     console.log("The game is working, WOO!");
 
@@ -83,9 +83,10 @@ class Game {
 
     //2-Paint the object
     this.background.drawLoop();
-
     this.player.draw();
 
+    this.setObstacleInterval();
+    
     //3-Loop through the obstace array and move every obstacle
     this.obstacleArray.forEach((eachObstacle) => {
       eachObstacle.draw();

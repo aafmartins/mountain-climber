@@ -42,7 +42,6 @@ class Background {
     if (this.bgImgY == this.canvasHeight) this.bgImgY = 0;
 
     // Create animation by scheduling a loop function call before the next redraw every time it is called
-    console.log("this.drawLoop");
-    window.requestAnimationFrame(this.drawLoop.bind(this));
+    //window.requestAnimationFrame(this.drawLoop.bind(this));
   }
 }

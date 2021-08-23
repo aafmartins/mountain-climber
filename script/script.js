@@ -18,5 +18,5 @@ window.addEventListener("load", function () {
   });
 
   //Add an event listener to move the player with the arrow keys
-  //window.addEventListener("keydown", (event) => player.move(event));
+  window.addEventListener("keydown", (event) => newGame.player.move(event));
 });
