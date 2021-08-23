@@ -6,7 +6,7 @@
 
 Climb on!
 
-But beware, to get to the top of the mountain you'll need to dodge falling debries. The more debries you're able to avoid, the more points you'll earn, but you can only survive two hits! Can you make it? And will you find any help along the way? 🥁 🥁 🥁
+But beware, to get to the top of the mountain you'll need to dodge falling debris. The more debris you're able to avoid, the more points you'll earn, but you can only survive two hits! Can you make it? And will you find any help along the way? 🥁 🥁 🥁
 
 Let's climb!
 
@@ -23,7 +23,7 @@ Let's climb!
 ## Backlog
 
 - Add bonus component: helmets fall at random from top of canvas, if caught, they will cancel the effect of the next rock.
-- Add scored points amd helmets caught to game state;
+- Add scored points and helmets caught to game state;
 - Add player movement simulation by reversing image
 - Add sound effects:
   background music
