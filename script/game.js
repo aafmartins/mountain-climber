@@ -24,14 +24,6 @@ class Game {
     );
     //Obstacles
     this.obstacleArray = [];
-    this.obstacle = new Obstacle(
-      this.ctx,
-      Math.random() * this.canvas.width - 100, // position x
-      0, //postion y - objects will be coming from top of canvas
-      Math.random() * 60 + 60, //widtth
-      Math.random() * 60 + 60, //height
-      Math.ceil(Math.random() * 2) //speed
-    );
     this.score = {
       points: 0,
     };
@@ -41,9 +33,16 @@ class Game {
   }
 
   setObstacleInterval() {
-    this.obstacleId = setInterval(function () {
-      this.obstacle;
-      this.obstacleArray.push(this.obstacle);
+    this.obstacleId = setInterval( () => {
+      const obstacle = new Obstacle(
+        this.ctx,
+        Math.random() * this.canvas.width - 100, // position x
+        0, //position y - objects will be coming from top of canvas
+        Math.random() * 60 + 60, //width
+        Math.random() * 60 + 60, //height
+        Math.ceil(Math.random() * 2) //speed
+      );
+      this.obstacleArray.push(obstacle);
     }, 1500);
   }
 
@@ -86,9 +85,10 @@ class Game {
     this.player.draw();
 
     this.setObstacleInterval();
-    
-    //3-Loop through the obstace array and move every obstacle
+
+    //3-Loop through the obstacle array and move every obstacle
     this.obstacleArray.forEach((eachObstacle) => {
+      console.log('where are my obstacles')
       eachObstacle.draw();
       eachObstacle.move();
       this.checkCollision(this.player, eachObstacle);

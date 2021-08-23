@@ -1,6 +1,5 @@
-// On window load, addeventlistener 'click' to start
+// On window load, addEventListener 'click' to start
 
-//Option 1
 window.addEventListener("load", function () {
   //Get DOM states
   const gameIntroState = document.getElementById("game-intro");

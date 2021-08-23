@@ -1,7 +1,7 @@
 // Create infinite scrolling canvas background
 // Code based on source: https://www.geeksforgeeks.org/html5-game-development-infinitely-scrolling-background/
 
-//TO DO: resize image so that infinite scroll is seemless
+//TO DO: resize image so that infinite scroll is seamless
 
 console.log("My game background is ready.");
 
