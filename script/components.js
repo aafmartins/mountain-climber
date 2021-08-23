@@ -9,6 +9,7 @@ class Components {
     this.width = width;
     this.height = height;
   }
+
   draw() {
     this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
