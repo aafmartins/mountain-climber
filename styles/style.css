@@ -62,13 +62,20 @@ path {
   margin-left: 0.9rem;
   margin-top: 0.3rem;
   color: rgba(64, 63, 63, 0.5);
-  }
+}
 
 .arrow-highlight {
   color: orangered;
 }
 
-/*#game-board {
-  float: left;
-  padding: 20px 0px;
-}*/
+#game {
+  display: none;
+}
+
+#game-over {
+  display: none;
+}
+
+#game-won {
+  display: none;
+}
