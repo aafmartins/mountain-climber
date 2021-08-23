@@ -3,6 +3,8 @@
 
 //TO DO: resize image so that infinite scroll is seemless
 
+console.log("My game background is ready.");
+
 const bgImg = document.createElement("img");
 bgImg.src = "/images/background.png";
 

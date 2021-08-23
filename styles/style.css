@@ -73,7 +73,7 @@ path {
 }
 
 #game {
-  display: none;
+  display: block;
 }
 
 #game-over {

@@ -1,4 +1,7 @@
 //Build player
+
+console.log("My player is ready.");
+
 const playerImg = document.createElement("img");
 playerImg.src = "/images/Players/player-og.png";
 
@@ -6,7 +9,7 @@ class Player {
   // Player constructor and draw methods extend from Components
   constructor(canvasContext, positionX, positionY, width, height) {
     this.ctx = canvasContext;
-    this.image = playerImg;
+    this.img= playerImg;
     this.x = positionX;
     this.y = positionY;
     this.width = width;
