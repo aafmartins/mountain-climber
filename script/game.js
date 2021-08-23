@@ -20,8 +20,7 @@ class Game {
       this.canvas.width / 2 - 25,
       this.canvas.height - 100,
       50,
-      100,
-      Player.image
+      100
     );
     //Obstacles
     this.obstacleArray = [];
@@ -37,7 +36,7 @@ class Game {
   drawObstacles() {
     this.obstacleId = setInterval(function () {
       this.obstacle = new Obstacle(
-        ctx,
+        this.ctx,
         Math.random() * this.canvas.width - 200, //position x
         0, //postion y - objects will be coming from top of canvas
         Math.random() * 50 + 100, //widtth
@@ -84,8 +83,8 @@ class Game {
 
     //2-Paint the object
     this.background.drawLoop();
+
     this.player.draw();
-    // Eventually: score.draw();
 
     //3-Loop through the obstace array and move every obstacle
     this.obstacleArray.forEach((eachObstacle) => {
