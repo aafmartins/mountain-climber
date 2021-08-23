@@ -33,6 +33,10 @@ path {
   z-index: 1;
 }
 
+#game-intro {
+  display: block;
+}
+
 #game-intro button {
   background-color: orangered;
   font-weight: 900;
@@ -61,7 +65,7 @@ path {
   transform: rotate(90deg);
   margin-left: 0.9rem;
   margin-top: 0.3rem;
-  color: rgba(64, 63, 63, 0.5);
+  color: rgba(64, 63, 63, 0.2);
 }
 
 .arrow-highlight {
