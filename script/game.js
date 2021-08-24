@@ -33,6 +33,20 @@ class Game {
     this.bonusPoints = {
       points: 0,
     };
+    //Get sounds
+    this.ouchSound = new Audio(
+      "/audio/377560__yudena__argh-woman-bymondfisch89.ogg"
+    );
+    this.catchSound = new Audio("/audio/387232__steaq__badge-coin-win.wav");
+    this.winSound = new Audio(
+      "/audio/270402__littlerobotsoundfactory__jingle-win-00.wav"
+    );
+    this.gameOverAudio = new Audio(
+      "/audio/173859__jivatma07__j1game-over-mono.wav"
+    );
+    this.backgroundSound = new Audio(
+      "/audio/564912__bloodpixelhero__funny-background-music-2.wav"
+    );
   }
 
   setObstacleInterval() {
@@ -58,6 +72,7 @@ class Game {
 
     if (collision) {
       this.obstacleArray.splice(this.obstacle, 1);
+      this.ouchSound.play();
       this.numberOfCollisions++;
       //decrement score
       this.score.points -= 5;
@@ -69,8 +84,10 @@ class Game {
 
     //Game-over logic
     if (this.numberOfCollisions > 2 && this.bonusPoints.points < 1) {
+      this.backgroundSound.stop();
       cancelAnimationFrame(this.frameId);
       clearInterval(this.obstacleId);
+      this.gameOverAudio.play();
       this.gameState.style.display = "none";
       this.gameOverState.style.display = "block";
     }
@@ -86,8 +103,10 @@ class Game {
 
     //Game-win logic
     if (this.score.points > 100) {
+      this.backgroundSound.stop();
       cancelAnimationFrame(this.frameId);
       clearInterval(this.obstacleId);
+      this.winSound.play();
       this.gameState.style.display = "none";
       this.gameWonState.style.display = "block";
     }
@@ -116,6 +135,7 @@ class Game {
 
     if (caught) {
       this.bonusArray.splice(this.bonus, 1);
+      this.catchSound.play();
       //increment bonus points
       this.bonusPoints.points++;
       console.log(this.bonusPoints.points);
@@ -159,6 +179,7 @@ class Game {
     this.gameStart();
     this.setObstacleInterval();
     this.setBonusInterval();
+    this.backgroundSound.play();
     //Add an event listener to move the player with the arrow keys
     window.addEventListener("keydown", (event) => this.player.move(event));
   }
