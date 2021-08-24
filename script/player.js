@@ -9,7 +9,7 @@ class Player {
   // Player constructor and draw methods extend from Components
   constructor(canvasContext, positionX, positionY, width, height) {
     this.ctx = canvasContext;
-    this.img= playerImg;
+    this.img = playerImg;
     this.x = positionX;
     this.y = positionY;
     this.width = width;
@@ -18,7 +18,7 @@ class Player {
 
   //Draw player
   draw() {
-    this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    this.ctx.drawImage(playerImg, this.x, this.y, this.width, this.height);
   }
 
   // Add move method

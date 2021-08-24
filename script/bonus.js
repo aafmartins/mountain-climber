@@ -2,14 +2,14 @@
 
 console.log("My obstacles are ready.");
 
-const obsImg = document.createElement("img");
-obsImg.src = "/images/Obstacles/rock-L.png";
+const bonusImg = document.createElement("img");
+bonusImg.src = "/images/helmet.png";
 
-class Obstacle {
+class Bonus {
   // Obstacle constructor and draw methods extend from Components
   constructor(canvasContext, positionX, positionY, width, height, speed) {
     this.ctx = canvasContext;
-    this.img = obsImg;
+    this.img = bonusImg;
     this.x = positionX;
     this.y = positionY;
     this.width = width;
@@ -19,7 +19,7 @@ class Obstacle {
 
   //Draw object
   draw() {
-    this.ctx.drawImage(obsImg, this.x, this.y, this.width, this.height);
+    this.ctx.drawImage(bonusImg, this.x, this.y, this.width, this.height);
   }
 
   // Add move method

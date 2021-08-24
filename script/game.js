@@ -8,6 +8,7 @@ class Game {
     this.ctx = canvas.getContext("2d");
     this.frameId = null;
     this.obstacleId = null;
+    this.bonusId = null;
     // Get DOM states
     this.gameIntroState = document.getElementById("game-intro");
     this.gameState = document.getElementById("game");
@@ -27,6 +28,11 @@ class Game {
       points: 0,
     };
     this.numberOfCollisions = 0;
+    //Get Bonus elements
+    this.bonusArray = [];
+    this.bonusPoints = {
+      points: 0,
+    };
   }
 
   setObstacleInterval() {
@@ -52,11 +58,17 @@ class Game {
 
     if (collision) {
       this.obstacleArray.splice(this.obstacle, 1);
-      this.numberOfCollisions += 1;
+      this.numberOfCollisions++;
+      //decrement score
       this.score.points -= 5;
+      //remove bonus points
+      if (this.bonusPoints.points > 0) {
+        this.bonusPoints.points--;
+      }
     }
 
-    if (this.numberOfCollisions > 2) {
+    //Game-over logic
+    if (this.numberOfCollisions > 2 && this.bonusPoints.points < 1) {
       cancelAnimationFrame(this.frameId);
       clearInterval(this.obstacleId);
       this.gameState.style.display = "none";
@@ -72,11 +84,43 @@ class Game {
       this.score.points += 5;
     }
 
+    //Game-win logic
     if (this.score.points > 100) {
       cancelAnimationFrame(this.frameId);
       clearInterval(this.obstacleId);
       this.gameState.style.display = "none";
       this.gameWonState.style.display = "block";
+    }
+  }
+
+  setBonusInterval() {
+    this.bonusId = setInterval(() => {
+      const bonusElement = new Bonus(
+        this.ctx,
+        Math.random() * this.canvas.width, // position x
+        0, //position y - objects will be coming from top of canvas
+        40, //width
+        40, //height
+        Math.ceil(Math.random() * 2) //speed
+      );
+      this.bonusArray.push(bonusElement);
+    }, 3 * 1000);
+  }
+
+  checkCatches() {
+    let caught =
+      this.player.x < this.bonus.x + this.bonus.width && //check that the left of the player intersects the right side of the obstacle
+      this.player.x + this.player.width > this.bonus.x && // check that the right of the player intersects with teh left of the obstacle
+      this.player.y < this.bonus.y + this.bonus.height &&
+      this.player.y + this.player.height > this.bonus.y;
+
+    if (caught) {
+      this.bonusArray.splice(this.bonus, 1);
+      //increment bonus points
+      this.bonusPoints.points++;
+      console.log(this.bonusPoints.points);
+      //increment score points
+      this.score.points += 5;
     }
   }
 
@@ -91,7 +135,14 @@ class Game {
     this.background.drawLoop();
     this.player.draw();
 
-    //3-Loop through the obstacle array and move every obstacle
+    //3-Loop through the bonus array and move every bonus element
+    for (this.bonus of this.bonusArray) {
+      this.bonus.draw();
+      this.bonus.move();
+      this.checkCatches();
+    }
+
+    //4-Loop through the obstacle array and move every obstacle
     for (this.obstacle of this.obstacleArray) {
       this.obstacle.draw();
       this.obstacle.move();
@@ -105,6 +156,7 @@ class Game {
     this.gameState.style.display = "block";
     this.gameStart();
     this.setObstacleInterval();
+    this.setBonusInterval();
     //Add an event listener to move the player with the arrow keys
     window.addEventListener("keydown", (event) => this.player.move(event));
   }
