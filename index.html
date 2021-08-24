@@ -28,13 +28,21 @@
         </svg>
         <img src="/images/logo.png" alt="" class="logo-img" />
       </div>
-      <button id="start-button">Let's Climb!</button>
-      <p>Use the left and right arrows to dodge the rocks and climb on!</p>
+      <p id="intro">
+        Climb on! But beware, to get to the top of the mountain you'll need to
+        dodge falling debris. The more debris you're able to avoid, the more
+        points you'll earn, but you can only survive two hits! Can you make it?
+        And will you find any help along the way? 🥁 🥁 🥁
+      </p>
+      <p id="instructions">
+        Use the left and right arrows to dodge the rocks and climb on!
+      </p>
       <div id="keyboard">
         <div id="arrow-left" class="arrow-highlight">&lt;</div>
         <div id="arrow-up-down">&lt;&nbsp; &gt;</div>
         <div id="arrow-right" class="arrow-highlight">&gt;</div>
       </div>
+      <button id="start-button">Let's Climb!</button>
     </div>
 
     <div id="game">
@@ -79,6 +87,12 @@
       <button id="restart-button-gw">Let's Go Again!</button>
     </div>
 
+    <script>
+      Audio.prototype.stop = function () {
+        this.pause();
+        this.currentTime = 0;
+      };
+    </script>
     <script defer type="text/javascript" src="/script/background.js"></script>
     <script defer type="text/javascript" src="/script/player.js"></script>
     <script defer type="text/javascript" src="/script/obstacles.js"></script>
