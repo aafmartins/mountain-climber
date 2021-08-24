@@ -9,6 +9,22 @@ window.addEventListener("load", function () {
       console.log("My game has started!");
     });
 
+  document
+    .getElementById("restart-button-go")
+    .addEventListener("click", function () {
+      startGame();
+
+      console.log("My game has restarted!");
+    });
+
+  document
+    .getElementById("restart-button-gw")
+    .addEventListener("click", function () {
+      startGame();
+
+      console.log("My game has restarted!");
+    });
+
   function startGame() {
     const newGame = new Game();
     newGame.gameInitialization();

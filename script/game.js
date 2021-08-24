@@ -153,6 +153,8 @@ class Game {
 
   gameInitialization() {
     this.gameIntroState.style.display = "none";
+    this.gameOverState.style.display = "none";
+    this.gameWonState.style.display = "none";
     this.gameState.style.display = "block";
     this.gameStart();
     this.setObstacleInterval();

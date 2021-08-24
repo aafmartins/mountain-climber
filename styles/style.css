@@ -37,7 +37,7 @@ path {
   display: block;
 }
 
-#game-intro button, .restart-button {
+button {
   background-color: orangered;
   font-weight: 900;
   color: rgb(238, 230, 218);
