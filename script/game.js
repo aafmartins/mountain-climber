@@ -120,6 +120,26 @@ class Game {
     }
   }
 
+  //Create hidden help
+  help() {
+    console.log("Help is on the way!");
+    this.canvas.addEventListener("mousedown", () => this.score++);
+  }
+
+  //Check correct code
+  askForHelp() {
+    const pressed = [];
+    const helpCode = "help";
+    window.addEventListener("keyup", (e) => {
+      pressed.push(e.key);
+      pressed.splice(-helpCode.length - 1, pressed.length - helpCode.length);
+
+      if (pressed.join("").includes(helpCode)) {
+        this.help();
+      }
+    });
+  }
+
   drawScore() {
     const score = document.getElementById("add-score");
     score.innerText = `${this.score}`;
@@ -193,6 +213,7 @@ class Game {
     this.setObstacleInterval();
     this.setBonusInterval();
     this.backgroundSound.play();
+    this.askForHelp();
     //Add an event listener to move the player with the arrow keys
     window.addEventListener("keydown", (event) => this.player.move(event));
   }
