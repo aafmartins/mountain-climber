@@ -3,7 +3,7 @@
 console.log("My obstacles are ready.");
 
 const obsImg = document.createElement("img");
-obsImg.src = "/images/Obstacles/rock-L.png";
+obsImg.src = "./images/Obstacles/rock-L.png";
 
 class Obstacle {
   // Obstacle constructor and draw methods extend from Components

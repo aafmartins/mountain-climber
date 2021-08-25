@@ -24,44 +24,24 @@ class Game {
       150
     );
     this.obstacleArray = [];
-    this.score = {
-      points: 0,
-      draw: () => {
-        this.ctx.font = "30px Arial";
-        this.ctx.fillStyle = "hotpink";
-        this.ctx.fillText =
-          (`Score: ${this.score.points}`, 0, this.canvas.height - 200);
-        console.log(`Score: ${this.score.points}`);
-      },
-    };
+    this.score = 0;
     this.numberOfCollisions = 0;
     //Get Bonus elements
     this.bonusArray = [];
-    this.bonusPoints = {
-      points: 0,
-      draw: () => {
-        this.ctx.font = "30px Arial";
-        this.ctx.fillStyle = "hotpink";
-        this.ctx.fillText =
-          (`Bonus points: ${this.bonusPoints.points}`,
-          0,
-          this.canvas.height - 200);
-        console.log(`Bonus Points: ${this.bonusPoints.points}`);
-      },
-    };
+    this.bonusPoints = 0;
     //Get sounds
     this.ouchSound = new Audio(
-      "/audio/377560__yudena__argh-woman-bymondfisch89.ogg"
+      "./audio/377560__yudena__argh-woman-bymondfisch89.ogg"
     );
-    this.catchSound = new Audio("/audio/387232__steaq__badge-coin-win.wav");
+    this.catchSound = new Audio("./audio/387232__steaq__badge-coin-win.wav");
     this.winSound = new Audio(
-      "/audio/270402__littlerobotsoundfactory__jingle-win-00.wav"
+      "./audio/270402__littlerobotsoundfactory__jingle-win-00.wav"
     );
     this.gameOverAudio = new Audio(
-      "/audio/173859__jivatma07__j1game-over-mono.wav"
+      "./audio/173859__jivatma07__j1game-over-mono.wav"
     );
     this.backgroundSound = new Audio(
-      "/audio/564912__bloodpixelhero__funny-background-music-2.wav"
+      "./audio/564912__bloodpixelhero__funny-background-music-2.wav"
     );
   }
 
@@ -91,10 +71,10 @@ class Game {
       this.ouchSound.play();
       this.numberOfCollisions++;
       //decrement score
-      this.score.points -= 5;
+      this.score -= 5;
       //remove bonus points
-      if (this.bonusPoints.points > 0) {
-        this.bonusPoints.points--;
+      if (this.bonusPoints > 0) {
+        this.bonusPoints--;
       }
     }
   }
@@ -104,7 +84,7 @@ class Game {
 
     if (avoidedCollision) {
       this.obstacleArray.splice(obstacle, 1);
-      this.score.points += 5;
+      this.score += 5;
     }
   }
 
@@ -134,14 +114,24 @@ class Game {
       console.log("the helmet was caught", bonus);
       this.catchSound.play();
       //increment bonus points
-      this.bonusPoints.points++;
+      this.bonusPoints++;
       //increment score points
-      this.score.points += 5;
+      this.score += 5;
     }
   }
 
+  drawScore() {
+    const score = document.getElementById("add-score");
+    score.innerText = `${this.score}`;
+  }
+
+  drawBonusPoints() {
+    const health = document.getElementById("add-health");
+    health.innerText = `${this.bonusPoints}`;
+  }
+
   checkGameOver() {
-    if (this.numberOfCollisions > 2 && this.bonusPoints.points < 1) {
+    if (this.numberOfCollisions > 2 && this.bonusPoints < 1) {
       this.backgroundSound.stop();
       cancelAnimationFrame(this.frameId);
       clearInterval(this.obstacleId);
@@ -152,7 +142,7 @@ class Game {
   }
 
   checkGameWin() {
-    if (this.score.points > 100) {
+    if (this.score > 100) {
       this.backgroundSound.stop();
       cancelAnimationFrame(this.frameId);
       clearInterval(this.obstacleId);
@@ -172,8 +162,8 @@ class Game {
     //2-Paint the object
     this.background.drawLoop();
     this.player.draw();
-    this.score.draw();
-    this.bonusPoints.draw();
+    this.drawScore();
+    this.drawBonusPoints();
 
     //3-Loop through the bonus array and move every bonus element from end to beginning
     for (let i = this.bonusArray.length - 1; i >= 0; i--) {

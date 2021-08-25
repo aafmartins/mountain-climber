@@ -3,7 +3,7 @@
 console.log("My obstacles are ready.");
 
 const bonusImg = document.createElement("img");
-bonusImg.src = "/images/helmet.png";
+bonusImg.src = "./images/helmet.png";
 
 class Bonus {
   // Obstacle constructor and draw methods extend from Components

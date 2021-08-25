@@ -4,15 +4,16 @@ font-family: 'Rampart One', cursive;
 font-family: 'Roboto', sans-serif;*/
 
 body {
+  min-height: 100vh;
   text-align: center;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 2vh;
   color: rgb(64, 63, 63);
 }
 
 svg {
-  margin-bottom: -5rem;
+  margin-bottom: -50px;
 }
 
 textPath {
@@ -41,38 +42,39 @@ path {
   display: block;
 }
 
-#game-intro > button {
-  margin-top: 4rem;
+#game-intro > #intro {
+  padding: 10px 20px;
+  text-align: justify;
+  display: block;
+  margin: 0 100px;
+  line-height: 3.5vh;
+  font-size: 2.2vh;
 }
 
 button {
   background-color: orangered;
   font-weight: 900;
   color: rgb(238, 230, 218);
-  padding: 1rem 2rem;
+  padding: 20px 25px;
   border: 0;
   box-shadow: 0;
   border-radius: 4px;
   font-size: 1.4rem;
+  margin: 30px;
 }
 
-#game-intro > #intro {
-  padding: 2rem;
-  max-width: 35rem;
-  text-align: justify;
-  display: block;
-  margin: 0 auto;
-  margin-top: 2rem;
-  line-height: 1.5rem;
-  font-size: 1.1rem;
+#game-intro > #instructions {
+  padding: 10px 20px;
+  margin: 0 100px;
+  font-size: 1.7vh;
 }
 
 #keyboard {
   display: flex;
   justify-content: center;
   font-family: "Rampart One", cursive;
-  font-size: 2.5rem;
-  margin-top: 2rem;
+  font-size: 5vh;
+  margin-top: 20px;
 }
 
 #arrow-up-down {
@@ -87,8 +89,35 @@ button {
 }
 
 #game {
-  display: block;
-  margin: 100px auto;
+  display: none;
+  margin-top: 40px;
+}
+
+#game-display {
+  display: flex;
+  align-self: center;
+  justify-content: space-around;
+}
+
+#points {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#score,
+#health {
+  display: flex;
+  color: orangered;
+  font-family: "Rampart One", cursive;
+  font-size: 4vh;
+  align-self: center;
+}
+
+#add-score,
+#add-health {
+  margin-left: 20px;
 }
 
 #game-over {

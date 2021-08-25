@@ -6,7 +6,7 @@
 console.log("My game background is ready.");
 
 const bgImg = document.createElement("img");
-bgImg.src = "/images/background_infinite.png";
+bgImg.src = "./images/background_infinite.png";
 
 class Background {
   constructor(canvasContext) {

@@ -3,7 +3,7 @@
 console.log("My player is ready.");
 
 const playerImg = document.createElement("img");
-playerImg.src = "/images/Players/player-og.png";
+playerImg.src = "./images/Players/player-og.png";
 
 class Player {
   // Player constructor and draw methods extend from Components
@@ -21,11 +21,15 @@ class Player {
     this.ctx.drawImage(playerImg, this.x, this.y, this.width, this.height);
   }
 
+  //Flip image horizontally
+  //Code here
+
   // Add move method
   move(event) {
     switch (event.keyCode) {
       case 37:
         if (this.x > 0) this.x -= 15;
+        
         break;
 
       case 39:

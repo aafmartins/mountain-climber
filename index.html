@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Rampart+One&family=Roboto:wght@100;400;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
     <title>Mountain Climber 🏔</title>
   </head>
   <body>
@@ -21,12 +21,12 @@
             id="curve"
             d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
           />
-          <image src="/images/arrows.png" alt="" class="arrows-img" />
+          <image src="./images/arrows.png" alt="" class="arrows-img" />
           <text width="500">
             <textPath xlink:href="#curve">Mountain Climber</textPath>
           </text>
         </svg>
-        <img src="/images/logo.png" alt="" class="logo-img" />
+        <img src="./images/logo.png" alt="" class="logo-img" />
       </div>
       <p id="intro">
         Climb on! But beware, to get to the top of the mountain you'll need to
@@ -36,6 +36,7 @@
         <br />
         Can you make it? And will you find any help along the way? 🥁 🥁 🥁
       </p>
+      <button id="start-button">Let's Climb!</button>
       <p id="instructions">
         Use the left and right arrows to dodge the rocks and climb on!
       </p>
@@ -44,11 +45,22 @@
         <div id="arrow-up-down">&lt;&nbsp; &gt;</div>
         <div id="arrow-right" class="arrow-highlight">&gt;</div>
       </div>
-      <button id="start-button">Let's Climb!</button>
     </div>
 
     <div id="game">
+      <div id="game-display">
       <canvas id="canvas" width="500" height="700"></canvas>
+      <div id="points">
+        <div id="score">
+        <div >Score:</div>
+        <div id="add-score"></div>
+        </div>
+        <div id="health">
+          <div >Health:</div>
+        <div id="add-health"></div>
+        </div>
+      </div>
+      </div>
     </div>
 
     <div id="game-over">
@@ -58,16 +70,16 @@
             id="curve"
             d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
           />
-          <image src="/images/arrows.png" alt="" class="arrows-img" />
+          <image src="./images/arrows.png" alt="" class="arrows-img" />
           <text width="500">
             <textPath xlink:href="#curve" startOffset="19%">
               Game Over!
             </textPath>
           </text>
         </svg>
-        <img src="/images/logo.png" alt="" class="logo-img" />
+        <img src="./images/logo.png" alt="" class="logo-img" />
       </div>
-      <div class="gif"><img src="/images/game-over.gif" alt="gif" /></div>
+      <div class="gif"><img src="./images/game-over.gif" alt="gif" /></div>
       <button id="restart-button-go">Let's Go Again!</button>
     </div>
 
@@ -78,14 +90,14 @@
             id="curve"
             d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
           />
-          <image src="/images/arrows.png" alt="" class="arrows-img" />
+          <image src="./images/arrows.png" alt="" class="arrows-img" />
           <text width="500">
             <textPath xlink:href="#curve" startOffset="26%">You win!</textPath>
           </text>
         </svg>
-        <img src="/images/logo.png" alt="" class="logo-img" />
+        <img src="./images/logo.png" alt="" class="logo-img" />
       </div>
-      <div class="gif"><img src="/images/game-win.gif" alt="gif" /></div>
+      <div class="gif"><img src="./images/game-win.gif" alt="gif" /></div>
       <button id="restart-button-gw">Let's Go Again!</button>
     </div>
 
@@ -95,11 +107,11 @@
         this.currentTime = 0;
       };
     </script>
-    <script defer type="text/javascript" src="/script/background.js"></script>
-    <script defer type="text/javascript" src="/script/player.js"></script>
-    <script defer type="text/javascript" src="/script/obstacles.js"></script>
-    <script defer type="text/javascript" src="/script/bonus.js"></script>
-    <script defer type="text/javascript" src="/script/game.js"></script>
-    <script defer type="text/javascript" src="/script/script.js"></script>
+    <script defer type="text/javascript" src="./script/background.js"></script>
+    <script defer type="text/javascript" src="./script/player.js"></script>
+    <script defer type="text/javascript" src="./script/obstacles.js"></script>
+    <script defer type="text/javascript" src="./script/bonus.js"></script>
+    <script defer type="text/javascript" src="./script/game.js"></script>
+    <script defer type="text/javascript" src="./script/script.js"></script>
   </body>
 </html>
