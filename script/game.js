@@ -1,14 +1,8 @@
-//Create Game class
-console.log("My game logic is ready.");
-
 class Game {
   constructor() {
     //Get Canvas and its context
     this.canvas = document.getElementById("canvas");
     this.ctx = canvas.getContext("2d");
-    this.frameId = null;
-    this.obstacleId = null;
-    this.bonusId = null;
     // Get DOM states
     this.gameIntroState = document.getElementById("game-intro");
     this.gameState = document.getElementById("game");
@@ -23,10 +17,13 @@ class Game {
       80,
       150
     );
+    //Create other needed variables
+    this.frameId = null;
+    this.obstacleId = null;
+    this.bonusId = null;
     this.obstacleArray = [];
     this.score = 0;
     this.numberOfCollisions = 0;
-    //Get Bonus elements
     this.bonusArray = [];
     this.bonusPoints = 0;
     //Get sounds
@@ -46,9 +43,12 @@ class Game {
   }
 
   setObstacleInterval() {
+    const obsImg = document.createElement("img");
+    obsImg.src = "./images/Obstacles/rock-L.png";
     this.obstacleId = setInterval(() => {
-      const obstacle = new Obstacle(
+      const obstacle = new MovingComponent(
         this.ctx,
+        obsImg,
         Math.random() * this.canvas.width - 100, // position x
         0, //position y - objects will be coming from top of canvas
         Math.random() * 40 + 40, //width
@@ -56,6 +56,23 @@ class Game {
         Math.ceil(Math.random() * 2) //speed
       );
       this.obstacleArray.push(obstacle);
+    }, 3 * 1000);
+  }
+
+  setBonusInterval() {
+    const bonusImg = document.createElement("img");
+    bonusImg.src = "./images/helmet.png";
+    this.bonusId = setInterval(() => {
+      const bonusElement = new MovingComponent(
+        this.ctx,
+        bonusImg,
+        Math.random() * this.canvas.width - 100, // position x
+        0, //position y - objects will be coming from top of canvas
+        40, //width
+        40, //height
+        Math.ceil(Math.random() * 1) //speed
+      );
+      this.bonusArray.push(bonusElement);
     }, 3 * 1000);
   }
 
@@ -88,20 +105,6 @@ class Game {
     }
   }
 
-  setBonusInterval() {
-    this.bonusId = setInterval(() => {
-      const bonusElement = new Bonus(
-        this.ctx,
-        Math.random() * this.canvas.width - 100, // position x
-        0, //position y - objects will be coming from top of canvas
-        40, //width
-        40, //height
-        Math.ceil(Math.random() * 1) //speed
-      );
-      this.bonusArray.push(bonusElement);
-    }, 3 * 1000);
-  }
-
   checkCatches(bonus) {
     let caught =
       this.player.x < bonus.x + bonus.width && //check that the left of the player intersects the right side of the obstacle
@@ -111,7 +114,6 @@ class Game {
 
     if (caught) {
       this.bonusArray.splice(bonus, 1);
-      console.log("the helmet was caught", bonus);
       this.catchSound.play();
       //increment bonus points
       this.bonusPoints++;
@@ -120,13 +122,14 @@ class Game {
     }
   }
 
-  //Create hidden help
+  //EASTER EGG
+
+  //Create cheat action
   help() {
-    console.log("Help is on the way!");
     this.canvas.addEventListener("mousedown", () => this.score++);
   }
 
-  //Check correct code
+  //Check correct cheat code
   askForHelp() {
     const pressed = [];
     const helpCode = "help";
@@ -179,7 +182,7 @@ class Game {
     //1-Clear the canvas
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    //2-Paint the object
+    //2-Paint the objects
     this.background.drawLoop();
     this.player.draw();
     this.drawScore();
@@ -200,6 +203,7 @@ class Game {
       this.checkAvoidedCollisions(this.obstacleArray[i]);
     }
 
+    //5-Check game-over and game-won conditions
     this.checkGameWin();
     this.checkGameOver();
   }
@@ -214,7 +218,6 @@ class Game {
     this.setBonusInterval();
     this.backgroundSound.play();
     this.askForHelp();
-    //Add an event listener to move the player with the arrow keys
     window.addEventListener("keydown", (event) => this.player.move(event));
   }
 }
