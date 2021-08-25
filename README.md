@@ -6,7 +6,9 @@
 
 Climb on!
 
-But beware, to get to the top of the mountain you'll need to dodge falling debris. The more debris you're able to avoid, the more points you'll earn, but you can only survive two hits! Can you make it? And will you find any help along the way? 🥁 🥁 🥁
+But beware, to get to the top of the mountain you'll need to dodge falling debris. The more debris you're able to avoid, the more points you'll earn, but you can only survive two hits! Catch the falling helmets to earn life points and increase your score.
+
+Can you make it? And will you find any help along the way? 🥁 🥁 🥁
 
 Let's climb!
 
@@ -17,21 +19,21 @@ Let's climb!
 - Obstacles (rocks) fall at random from the top of the canvas;
 - When player dodges a rock, they earn 5 points;
 - When player gets hit, they loose 5 points;
-- If the player dodges 20 rocks, they win, the game ends;
+- The player wins when they get to 100 points;
 - If the player gets hit by more than 2 rocks, they loose, the game ends.
 
 ## Backlog
 
-- Add bonus component: helmets fall at random from top of canvas, if caught, they will cancel the effect of the next rock.
+- Add bonus component: helmets fall at random from top of canvas, if caught, the player wins 5 points and 1 bonus point (i.e. an extra life).
 - Add scored points and helmets caught to game state;
-- Add player movement simulation by reversing image
+- Add player movement simulation by reversing image;
 - Add sound effects:
   background music
   when player is hit
   when player looses
   when player wins
   when player catches a bonus component
-- Add foreground trees which disappear as the climber 'goes up'
+- Add background image to game state
 - Add name prompt to splash page
 - Add personalization throughout the game
 - Add high scores at game-over/game-won states
