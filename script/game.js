@@ -26,12 +26,28 @@ class Game {
     this.obstacleArray = [];
     this.score = {
       points: 0,
+      draw: () => {
+        this.ctx.font = "30px Arial";
+        this.ctx.fillStyle = "hotpink";
+        this.ctx.fillText =
+          (`Score: ${this.score.points}`, 0, this.canvas.height - 200);
+        console.log(`Score: ${this.score.points}`);
+      },
     };
     this.numberOfCollisions = 0;
     //Get Bonus elements
     this.bonusArray = [];
     this.bonusPoints = {
       points: 0,
+      draw: () => {
+        this.ctx.font = "30px Arial";
+        this.ctx.fillStyle = "hotpink";
+        this.ctx.fillText =
+          (`Bonus points: ${this.bonusPoints.points}`,
+          0,
+          this.canvas.height - 200);
+        console.log(`Bonus Points: ${this.bonusPoints.points}`);
+      },
     };
     //Get sounds
     this.ouchSound = new Audio(
@@ -53,25 +69,25 @@ class Game {
     this.obstacleId = setInterval(() => {
       const obstacle = new Obstacle(
         this.ctx,
-        Math.random() * this.canvas.width, // position x
+        Math.random() * this.canvas.width - 100, // position x
         0, //position y - objects will be coming from top of canvas
         Math.random() * 40 + 40, //width
         Math.random() * 40 + 40, //height
         Math.ceil(Math.random() * 2) //speed
       );
       this.obstacleArray.push(obstacle);
-    }, 2 * 1000);
+    }, 3 * 1000);
   }
 
-  checkCollision() {
+  checkCollision(obstacle) {
     let collision =
-      this.player.x < this.obstacle.x + this.obstacle.width && //check that the left of the player intersects the right side of the obstacle
-      this.player.x + this.player.width > this.obstacle.x && // check that the right of the player intersects with teh left of the obstacle
-      this.player.y < this.obstacle.y + this.obstacle.height &&
-      this.player.y + this.player.height > this.obstacle.y;
+      this.player.x < obstacle.x + obstacle.width && //check that the left of the player intersects the right side of the obstacle
+      this.player.x + this.player.width > obstacle.x && // check that the right of the player intersects with teh left of the obstacle
+      this.player.y < obstacle.y + obstacle.height &&
+      this.player.y + this.player.height > obstacle.y;
 
     if (collision) {
-      this.obstacleArray.splice(this.obstacle, 1);
+      this.obstacleArray.splice(obstacle, 1);
       this.ouchSound.play();
       this.numberOfCollisions++;
       //decrement score
@@ -81,8 +97,50 @@ class Game {
         this.bonusPoints.points--;
       }
     }
+  }
 
-    //Game-over logic
+  checkAvoidedCollisions(obstacle) {
+    let avoidedCollision = obstacle.y > this.canvas.height;
+
+    if (avoidedCollision) {
+      this.obstacleArray.splice(obstacle, 1);
+      this.score.points += 5;
+    }
+  }
+
+  setBonusInterval() {
+    this.bonusId = setInterval(() => {
+      const bonusElement = new Bonus(
+        this.ctx,
+        Math.random() * this.canvas.width - 100, // position x
+        0, //position y - objects will be coming from top of canvas
+        40, //width
+        40, //height
+        Math.ceil(Math.random() * 1) //speed
+      );
+      this.bonusArray.push(bonusElement);
+    }, 3 * 1000);
+  }
+
+  checkCatches(bonus) {
+    let caught =
+      this.player.x < bonus.x + bonus.width && //check that the left of the player intersects the right side of the obstacle
+      this.player.x + this.player.width > bonus.x && // check that the right of the player intersects with teh left of the obstacle
+      this.player.y < bonus.y + bonus.height &&
+      this.player.y + this.player.height > bonus.y;
+
+    if (caught) {
+      this.bonusArray.splice(bonus, 1);
+      console.log("the helmet was caught", bonus);
+      this.catchSound.play();
+      //increment bonus points
+      this.bonusPoints.points++;
+      //increment score points
+      this.score.points += 5;
+    }
+  }
+
+  checkGameOver() {
     if (this.numberOfCollisions > 2 && this.bonusPoints.points < 1) {
       this.backgroundSound.stop();
       cancelAnimationFrame(this.frameId);
@@ -93,15 +151,7 @@ class Game {
     }
   }
 
-  checkAvoidedCollisions() {
-    let avoidedCollision = this.obstacle.y > this.canvas.height;
-
-    if (avoidedCollision) {
-      this.obstacleArray.splice(this.obstacle, 1);
-      this.score.points += 5;
-    }
-
-    //Game-win logic
+  checkGameWin() {
     if (this.score.points > 100) {
       this.backgroundSound.stop();
       cancelAnimationFrame(this.frameId);
@@ -109,38 +159,6 @@ class Game {
       this.winSound.play();
       this.gameState.style.display = "none";
       this.gameWonState.style.display = "block";
-    }
-  }
-
-  setBonusInterval() {
-    this.bonusId = setInterval(() => {
-      const bonusElement = new Bonus(
-        this.ctx,
-        Math.random() * this.canvas.width, // position x
-        0, //position y - objects will be coming from top of canvas
-        40, //width
-        40, //height
-        Math.ceil(Math.random() * 2) //speed
-      );
-      this.bonusArray.push(bonusElement);
-    }, 3 * 1000);
-  }
-
-  checkCatches() {
-    let caught =
-      this.player.x < this.bonus.x + this.bonus.width && //check that the left of the player intersects the right side of the obstacle
-      this.player.x + this.player.width > this.bonus.x && // check that the right of the player intersects with teh left of the obstacle
-      this.player.y < this.bonus.y + this.bonus.height &&
-      this.player.y + this.player.height > this.bonus.y;
-
-    if (caught) {
-      this.bonusArray.splice(this.bonus, 1);
-      this.catchSound.play();
-      //increment bonus points
-      this.bonusPoints.points++;
-      console.log(this.bonusPoints.points);
-      //increment score points
-      this.score.points += 5;
     }
   }
 
@@ -154,21 +172,26 @@ class Game {
     //2-Paint the object
     this.background.drawLoop();
     this.player.draw();
+    this.score.draw();
+    this.bonusPoints.draw();
 
-    //3-Loop through the bonus array and move every bonus element
-    for (this.bonus of this.bonusArray) {
-      this.bonus.draw();
-      this.bonus.move();
-      this.checkCatches();
+    //3-Loop through the bonus array and move every bonus element from end to beginning
+    for (let i = this.bonusArray.length - 1; i >= 0; i--) {
+      this.bonusArray[i].draw();
+      this.bonusArray[i].move();
+      this.checkCatches(this.bonusArray[i]);
     }
 
-    //4-Loop through the obstacle array and move every obstacle
-    for (this.obstacle of this.obstacleArray) {
-      this.obstacle.draw();
-      this.obstacle.move();
-      this.checkCollision();
-      this.checkAvoidedCollisions();
+    //4-Loop through the obstacle array and move every obstacle from end to beginning
+    for (let i = this.obstacleArray.length - 1; i >= 0; i--) {
+      this.obstacleArray[i].draw();
+      this.obstacleArray[i].move();
+      this.checkCollision(this.obstacleArray[i]);
+      this.checkAvoidedCollisions(this.obstacleArray[i]);
     }
+
+    this.checkGameWin();
+    this.checkGameOver();
   }
 
   gameInitialization() {
