@@ -15,9 +15,6 @@ class Player {
     this.ctx.drawImage(playerImg, this.x, this.y, this.width, this.height);
   }
 
-  //Flip image horizontally
-  //Code here
-
   move(event) {
     event.preventDefault();
     switch (event.keyCode) {
