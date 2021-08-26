@@ -57,7 +57,7 @@ class Game {
       const obstacle = new MovingComponent(
         this.ctx,
         obsImg,
-        Math.random() * this.canvas.width - 100, // position x
+        Math.abs(Math.random() * this.canvas.width - 100), // position x
         0, //position y - objects will be coming from top of canvas
         Math.random() * (40 / 500) * this.canvas.width +
           (40 / 500) * this.canvas.width, //width
@@ -66,7 +66,7 @@ class Game {
         Math.ceil(Math.random() * 2) //speed
       );
       this.obstacleArray.push(obstacle);
-    }, 3 * 1000);
+    }, 2 * 1000);
   }
 
   setBonusInterval() {
@@ -76,14 +76,14 @@ class Game {
       const bonusElement = new MovingComponent(
         this.ctx,
         bonusImg,
-        Math.random() * this.canvas.width - 100, // position x
+        Math.abs(Math.random() * this.canvas.width - 100), // position x
         0, //position y - objects will be coming from top of canvas
         (40 / 500) * this.canvas.width, //width
         (40 / 700) * this.canvas.height, //height
         Math.ceil(Math.random() * 1) //speed
       );
       this.bonusArray.push(bonusElement);
-    }, 3 * 1000);
+    }, 4 * 1000);
   }
 
   checkCollision(obstacle) {
@@ -144,6 +144,7 @@ class Game {
     const pressed = [];
     const helpCode = "help";
     window.addEventListener("keyup", (e) => {
+      e.preventDefault();
       pressed.push(e.key);
       pressed.splice(-helpCode.length - 1, pressed.length - helpCode.length);
 
@@ -227,6 +228,10 @@ class Game {
   }
 
   gameInitialization() {
+    const heyMsg = document.getElementById("hey");
+    if (this.playerName) {
+      heyMsg.innerText = `Hey, ${this.playerName}! Let's see how your climb is going:`;
+    }
     this.gameIntroState.style.display = "none";
     this.gameOverState.style.display = "none";
     this.gameWonState.style.display = "none";

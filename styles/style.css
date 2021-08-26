@@ -57,6 +57,9 @@ h1 {
   width: 18vw;
   text-align: center;
   margin-bottom: 30px;
+  color: rgba(64, 63, 63, 0.5);
+  border: 1px solid rgba(64, 63, 63, 0.2);
+  border-radius: 3px;
 }
 
 #introduction,
@@ -140,6 +143,14 @@ button:hover,
   color: orangered;
   font-family: "Rampart One", cursive;
   font-size: 8vh;
+}
+
+#hey {
+  display: flex;
+  color: rgba(64, 63, 63, 0.2);
+  font-family: "Rampart One", cursive;
+  font-size: 6vh;
+  margin-bottom: 50px;
 }
 
 #add-score,
