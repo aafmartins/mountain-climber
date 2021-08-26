@@ -250,3 +250,36 @@ class Game {
     window.addEventListener("keydown", (event) => this.player.move(event));
   }
 }
+
+/*
+updateHighScore(playerName, playerScore) {
+  
+  // const highScores = [{name: palyersName, score: 1214}, {name: palyersName, score:124124}, {name: palyersName, score:1241422}]
+   
+  let highScores = JSON.parse(localStorage.getItem("highscores"));
+  if (palyersScore > highScores[0])
+    highScores = [{ name: palyersName, score: palyersScore }].concat(
+      highScores.slice(0, 2)
+    );
+
+  if (palyersScore < highScores[0] && palyersScore > highScores[1])
+    highScores = highScores
+      .slice(0, 1)
+      .concat([{ name: palyersName, score: palyersScore }])
+      .concat(highScores.slice(1, 1));
+
+  if (
+    palyersScore < highScores[0] &&
+    palyersScore < highScores[1] &&
+    palyersScore > highScores[2]
+  )
+    highScores = highScores.splice(2, 1, {
+      name: palyersName,
+      score: palyersScore,
+    });
+  localStorage.setItem("highscores", JSON.stringify(highScores));
+}
+
+getHighScores() {
+  return localStorage.setItem("highscores", JSON.stringify(highScores));
+} */
