@@ -2,12 +2,12 @@ const bgImg = document.createElement("img");
 bgImg.src = "./images/background_infinite.png";
 
 class Background {
-  constructor(canvasContext) {
+  constructor(canvasContext, canvasWidth, canvasHeight) {
     this.ctx = canvasContext;
     this.bgImgX = 0;
     this.bgImgY = 0;
-    this.canvasWidth = 500;
-    this.canvasHeight = 700;
+    this.canvasWidth = canvasWidth;
+    this.canvasHeight = canvasHeight;
     this.scrollSpeed = 0.25; //10
   }
 

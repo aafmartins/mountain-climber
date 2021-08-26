@@ -4,16 +4,16 @@ font-family: 'Rampart One', cursive;
 font-family: 'Roboto', sans-serif;*/
 
 body {
-  min-height: 100vh;
-  text-align: center;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 2vh;
   color: rgb(64, 63, 63);
+  text-align: center;
 }
 
 svg {
   margin-bottom: -50px;
+  max-height: 50vh;
 }
 
 textPath {
@@ -32,41 +32,46 @@ path {
 
 .logo-img {
   position: absolute;
-  top: 23vw;
-  left: calc((100% - 40vw) / 2);
-  width: 40vw;
+  top: 20vh;
+  left: calc((100% - 49vh) / 2);
+  height: 16vh;
   z-index: 1;
 }
 
-#game-intro {
-  display: block;
+#name-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
 }
 
-#game-intro > #intro {
-  padding: 10px 20px;
+#name-prompt,
+h1 {
+  font-family: "Rampart One", cursive;
+  color: orangered;
+  font-size: 3vh;
+  margin-bottom: 20px;
+}
+
+#name {
+  padding: 15px 20px;
+  width: 18vw;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#introduction,
+#instructions {
+  display: none;
+}
+
+.intro-text {
   text-align: justify;
   display: block;
-  margin: 0 100px;
+  padding: 15px 20px;
+  margin: 20px 150px;
   line-height: 3.5vh;
   font-size: 2.2vh;
-}
-
-button {
-  background-color: orangered;
-  font-weight: 900;
-  color: rgb(238, 230, 218);
-  padding: 20px 25px;
-  border: 0;
-  box-shadow: 0;
-  border-radius: 4px;
-  font-size: 1.4rem;
-  margin: 30px;
-}
-
-#game-intro > #instructions {
-  padding: 10px 20px;
-  margin: 0 100px;
-  font-size: 1.7vh;
 }
 
 #keyboard {
@@ -74,7 +79,7 @@ button {
   justify-content: center;
   font-family: "Rampart One", cursive;
   font-size: 5vh;
-  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 #arrow-up-down {
@@ -86,6 +91,27 @@ button {
 
 .arrow-highlight {
   color: orangered;
+}
+
+button,
+#submit-btn {
+  font-family: "Rampart One", cursive;
+  background-color: orangered;
+  font-weight: 900;
+  color: white;
+  padding: 15px 20px;
+  border: 0;
+  box-shadow: 0;
+  border-radius: 0.5vh;
+  font-size: 2.5vh;
+}
+
+button:hover,
+#submit-btn:hover {
+  background-color: white;
+  color: orangered;
+  transform: scale(1.2);
+  transition: ease-in-out;
 }
 
 #game {
@@ -111,7 +137,7 @@ button {
   display: flex;
   color: orangered;
   font-family: "Rampart One", cursive;
-  font-size: 4vh;
+  font-size: 8vh;
   align-self: center;
 }
 
@@ -126,6 +152,15 @@ button {
 
 #game-won {
   display: none;
+}
+
+#go-message,
+#win-message {
+  font-size: 10vh;
+  color: orangered;
+  margin: 10px auto;
+  font-family: "Rampart One", cursive;
+  text-transform: uppercase;
 }
 
 .gif {

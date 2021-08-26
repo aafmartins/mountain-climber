@@ -1,23 +1,31 @@
 class Game {
   constructor() {
-    //Get Canvas and its context
+    // Get Canvas and its context
     this.canvas = document.getElementById("canvas");
     this.ctx = canvas.getContext("2d");
+    // Get canvas size
+    this.canvas.height = window.innerHeight * 0.9;
+    this.canvas.width = (500 / 700) * this.canvas.height;
     // Get DOM states
     this.gameIntroState = document.getElementById("game-intro");
     this.gameState = document.getElementById("game");
     this.gameOverState = document.getElementById("game-over");
     this.gameWonState = document.getElementById("game-won");
     // Create instances of classes to be painted on canvas
-    this.background = new Background(this.ctx);
+    this.background = new Background(
+      this.ctx,
+      this.canvas.width,
+      this.canvas.height
+    );
     this.player = new Player(
       this.ctx,
-      this.canvas.width / 2 - 25,
-      this.canvas.height - 150,
-      80,
-      150
+      this.canvas.width / 2 - ((80 / 500) * this.canvas.width) / 2,
+      this.canvas.height - (150 / 700) * this.canvas.height,
+      (80 / 500) * this.canvas.width,
+      (150 / 700) * this.canvas.height
     );
     //Create other needed variables
+    this.playerName = document.getElementById("name").value;
     this.frameId = null;
     this.obstacleId = null;
     this.bonusId = null;
@@ -51,8 +59,10 @@ class Game {
         obsImg,
         Math.random() * this.canvas.width - 100, // position x
         0, //position y - objects will be coming from top of canvas
-        Math.random() * 40 + 40, //width
-        Math.random() * 40 + 40, //height
+        Math.random() * (40 / 500) * this.canvas.width +
+          (40 / 500) * this.canvas.width, //width
+        Math.random() * (40 / 500) * this.canvas.width +
+          (40 / 500) * this.canvas.width, //height
         Math.ceil(Math.random() * 2) //speed
       );
       this.obstacleArray.push(obstacle);
@@ -68,8 +78,8 @@ class Game {
         bonusImg,
         Math.random() * this.canvas.width - 100, // position x
         0, //position y - objects will be coming from top of canvas
-        40, //width
-        40, //height
+        (40 / 500) * this.canvas.width, //width
+        (40 / 700) * this.canvas.height, //height
         Math.ceil(Math.random() * 1) //speed
       );
       this.bonusArray.push(bonusElement);
@@ -159,6 +169,10 @@ class Game {
       cancelAnimationFrame(this.frameId);
       clearInterval(this.obstacleId);
       this.gameOverAudio.play();
+      const gameOverMsg = document.getElementById("go-message");
+      if (this.playerName) {
+        gameOverMsg.innerText = `Game over, ${this.playerName}!`;
+      }
       this.gameState.style.display = "none";
       this.gameOverState.style.display = "block";
     }
@@ -170,6 +184,10 @@ class Game {
       cancelAnimationFrame(this.frameId);
       clearInterval(this.obstacleId);
       this.winSound.play();
+      const gameWinMsg = document.getElementById("win-message");
+      if (this.playerName) {
+        gameWinMsg.innerText = `${this.playerName}, you won!`;
+      }
       this.gameState.style.display = "none";
       this.gameWonState.style.display = "block";
     }
