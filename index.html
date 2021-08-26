@@ -28,7 +28,7 @@
         </svg>
         <img src="./images/logo.png" alt="" class="logo-img" />
       </div>
-      
+
       <div id="first-prompt">
         <form id="name-box">
           <label for="name" id="name-prompt">What's your name?</label>
@@ -45,34 +45,32 @@
         </form>
       </div>
 
-    
+      <div id="introduction">
+        <h1>Introduction</h1>
+        <p class="intro-text">
+          Climb on! But beware, to get to the top of the mountain you'll need to
+          dodge falling debris. The more rocks you're able to avoid, the more
+          points you'll earn, but you can only survive two hits! Catch the
+          falling helmets to earn life points and increase your score.<br />
+          <br />
+          Can you make it? And will you find any <strong>help</strong> along the
+          way?
+        </p>
+        <button id="next-btn">Tell me more</button>
+      </div>
 
-        <div id="introduction">
-          <h1>Introduction</h1>
-          <p class="intro-text">
-            Climb on! But beware, to get to the top of the mountain you'll need
-            to dodge falling debris. The more rocks you're able to avoid, the
-            more points you'll earn, but you can only survive two hits! Catch
-            the falling helmets to earn life points and increase your score.<br />
-            <br />
-            Can you make it? And will you find any <strong>help</strong> along
-            the way?
-          </p>
-          <button id="next-btn">Tell me more</button>
+      <div id="instructions">
+        <h1>Instructions</h1>
+        <p class="intro-text">
+          Use the left and right arrows to dodge the rocks and climb on!
+        </p>
+        <div id="keyboard">
+          <div id="arrow-left" class="arrow-highlight">&lt;</div>
+          <div id="arrow-up-down">&lt;&nbsp; &gt;</div>
+          <div id="arrow-right" class="arrow-highlight">&gt;</div>
         </div>
-
-        <div id="instructions">
-          <h1>Instructions</h1>
-          <p class="intro-text">Use the left and right arrows to dodge the rocks and climb on!</p>
-          <div id="keyboard">
-            <div id="arrow-left" class="arrow-highlight">&lt;</div>
-            <div id="arrow-up-down">&lt;&nbsp; &gt;</div>
-            <div id="arrow-right" class="arrow-highlight">&gt;</div>
-          </div>
-          <button id="start-button">Let's Climb!</button>
-        </div>
-
-  
+        <button id="start-button">Let's Climb!</button>
+      </div>
     </div>
 
     <div id="game">
@@ -95,13 +93,29 @@
     <div id="game-over">
       <div id="go-message">Game over!</div>
       <div class="gif"><img src="./images/game-over.gif" alt="gif" /></div>
-      <button id="restart-button-go">Let's Go Again!</button>
+      <div class="highscore-container">
+        <div class="highscores-list">
+          <h1>Highscores:</h1>
+          <div class="first-place">...</div>
+          <div class="second-place">...</div>
+          <div class="third-place">...</div>
+        </div>
+        <button id="restart-button-go">Let's Go Again!</button>
+      </div>
     </div>
 
     <div id="game-won">
       <div id="win-message">You won!</div>
       <div class="gif"><img src="./images/game-win.gif" alt="gif" /></div>
-      <button id="restart-button-gw">Let's Go Again!</button>
+      <div class="highscore-container">
+        <div class="highscores-list">
+          <h1>Highscores:</h1>
+          <div class="first-place">...</div>
+          <div class="second-place">...</div>
+          <div class="third-place">...</div>
+        </div>
+        <button id="restart-button-gw">Let's Go Again!</button>
+      </div>
     </div>
 
     <script>

@@ -167,13 +167,32 @@ button:hover,
   text-transform: uppercase;
 }
 
+.highscore-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.highscores-list {
+  color: orangered;
+  font-family: "Rampart One", cursive;
+  text-transform: uppercase;
+  font-size: 2.5vh;
+}
+
+#restart-button-go,
+#restart-button-gw {
+  flex: column;
+  align-self: center;
+  justify-content: center;
+}
+
 .gif {
   display: flex;
   justify-content: center;
-  margin: 40px;
+  margin: 20px;
 }
 
 .gif img {
   min-width: 250px;
-  max-width: 400px;
+  max-width: 350px;
 }
