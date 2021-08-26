@@ -32,6 +32,7 @@ class Game {
     this.obstacleArray = [];
     this.score = 0;
     this.numberOfCollisions = 0;
+    this.numberOfAvoidedCollisions = 0;
     this.bonusArray = [];
     this.bonusPoints = 0;
     //Get sounds
@@ -111,6 +112,7 @@ class Game {
 
     if (avoidedCollision) {
       this.obstacleArray.splice(obstacle, 1);
+      this.numberOfAvoidedCollisions++;
       this.score += 5;
     }
   }
@@ -164,11 +166,14 @@ class Game {
     health.innerText = `${this.bonusPoints}`;
   }
 
+  u;
+
   checkGameOver() {
-    if (this.numberOfCollisions > 2 && this.bonusPoints < 1) {
+    if (this.numberOfCollisions > 0 && this.bonusPoints < 1) {
       this.backgroundSound.stop();
       cancelAnimationFrame(this.frameId);
       clearInterval(this.obstacleId);
+      clearInterval(this.bonusId);
       this.gameOverAudio.play();
       const gameOverMsg = document.getElementById("go-message");
       if (this.playerName) {
@@ -180,10 +185,11 @@ class Game {
   }
 
   checkGameWin() {
-    if (this.score > 100) {
+    if (this.numberOfAvoidedCollisions > 50) {
       this.backgroundSound.stop();
       cancelAnimationFrame(this.frameId);
       clearInterval(this.obstacleId);
+      clearInterval(this.bonusId);
       this.winSound.play();
       const gameWinMsg = document.getElementById("win-message");
       if (this.playerName) {
