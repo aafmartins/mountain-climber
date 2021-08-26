@@ -1,6 +1,6 @@
 # Mountain climber
 
-[Link Deploy](https://github.com/aafmartins/mountain-climber)
+[The Game](https://aafmartins.github.io/mountain-climber/)
 
 ## Description
 
