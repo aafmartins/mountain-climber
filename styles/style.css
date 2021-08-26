@@ -74,6 +74,10 @@ h1 {
   font-size: 2.2vh;
 }
 
+#instructions > p {
+  text-align: center;
+}
+
 #keyboard {
   display: flex;
   justify-content: center;
