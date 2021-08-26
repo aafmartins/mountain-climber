@@ -83,7 +83,7 @@ class Game {
         Math.ceil(Math.random() * 2) //speed
       );
       this.obstacleArray.push(obstacle);
-    }, 2 * 1000);
+    }, 1.5 * 1000);
   }
 
   setBonusInterval() {
@@ -246,7 +246,7 @@ class Game {
   }
 
   checkGameWin() {
-    if (this.numberOfAvoidedCollisions > 10) {
+    if (this.numberOfAvoidedCollisions > 30) {
       this.backgroundSound.stop();
       this.updateHighScores(this.playerName, this.score);
       cancelAnimationFrame(this.frameId);
