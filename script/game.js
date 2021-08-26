@@ -26,6 +26,9 @@ class Game {
     );
     //Create other needed variables
     this.playerName = document.getElementById("name").value;
+    this.scoreMsg = document.querySelector(".score-msg");
+    this.gameWinMsg = document.getElementById("win-message");
+    this.gameOverMsg = document.getElementById("go-message");
     this.frameId = null;
     this.obstacleId = null;
     this.bonusId = null;
@@ -166,7 +169,37 @@ class Game {
     health.innerText = `${this.bonusPoints}`;
   }
 
-  u;
+  updateHighScore(playerName, playerScore) {
+    // const highScores = [{name: palyersName, score: 1214}, {name: palyersName, score:124124}, {name: palyersName, score:1241422}]
+
+    let highScores = JSON.parse(localStorage.getItem("highscores"));
+
+    if (playerScore > highScores[0])
+      highScores = [{ name: playerName, score: playerScore }].concat(
+        highScores.slice(0, 2)
+      );
+
+    if (playerScore < highScores[0] && playerScore > highScores[1])
+      highScores = highScores
+        .slice(0, 1)
+        .concat([{ name: playerName, score: playerScore }])
+        .concat(highScores.slice(1, 1));
+
+    if (
+      playerScore < highScores[0] &&
+      playerScore < highScores[1] &&
+      playerScore > highScores[2]
+    )
+      highScores = highScores.splice(2, 1, {
+        name: playerName,
+        score: playerScore,
+      });
+    localStorage.setItem("highscores", JSON.stringify(highScores));
+  }
+
+  getHighScores() {
+    return localStorage.setItem("highscores", JSON.stringify(highScores));
+  }
 
   checkGameOver() {
     if (this.numberOfCollisions > 0 && this.bonusPoints < 1) {
@@ -175,10 +208,10 @@ class Game {
       clearInterval(this.obstacleId);
       clearInterval(this.bonusId);
       this.gameOverAudio.play();
-      const gameOverMsg = document.getElementById("go-message");
       if (this.playerName) {
-        gameOverMsg.innerText = `Game over, ${this.playerName}!`;
+        this.gameOverMsg.innerText = `Game over, ${this.playerName}!`;
       }
+      this.scoreMsg.innerText = `Your score is ${this.score}`;
       this.gameState.style.display = "none";
       this.gameOverState.style.display = "block";
     }
@@ -191,10 +224,10 @@ class Game {
       clearInterval(this.obstacleId);
       clearInterval(this.bonusId);
       this.winSound.play();
-      const gameWinMsg = document.getElementById("win-message");
       if (this.playerName) {
-        gameWinMsg.innerText = `${this.playerName}, you won!`;
+        this.gameWinMsg.innerText = `${this.playerName}, you won!`;
       }
+      this.scoreMsg.innerText = `Your score is ${this.score}`;
       this.gameState.style.display = "none";
       this.gameWonState.style.display = "block";
     }
@@ -231,6 +264,9 @@ class Game {
     //5-Check game-over and game-won conditions
     this.checkGameWin();
     this.checkGameOver();
+
+    //6-Update high scores
+    //this.updateHighScore(this.playerName, this.playerScore);
   }
 
   gameInitialization() {
@@ -250,36 +286,3 @@ class Game {
     window.addEventListener("keydown", (event) => this.player.move(event));
   }
 }
-
-/*
-updateHighScore(playerName, playerScore) {
-  
-  // const highScores = [{name: palyersName, score: 1214}, {name: palyersName, score:124124}, {name: palyersName, score:1241422}]
-   
-  let highScores = JSON.parse(localStorage.getItem("highscores"));
-  if (palyersScore > highScores[0])
-    highScores = [{ name: palyersName, score: palyersScore }].concat(
-      highScores.slice(0, 2)
-    );
-
-  if (palyersScore < highScores[0] && palyersScore > highScores[1])
-    highScores = highScores
-      .slice(0, 1)
-      .concat([{ name: palyersName, score: palyersScore }])
-      .concat(highScores.slice(1, 1));
-
-  if (
-    palyersScore < highScores[0] &&
-    palyersScore < highScores[1] &&
-    palyersScore > highScores[2]
-  )
-    highScores = highScores.splice(2, 1, {
-      name: palyersName,
-      score: palyersScore,
-    });
-  localStorage.setItem("highscores", JSON.stringify(highScores));
-}
-
-getHighScores() {
-  return localStorage.setItem("highscores", JSON.stringify(highScores));
-} */

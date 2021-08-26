@@ -33,9 +33,10 @@ path {
 .logo-img {
   position: absolute;
   top: 20vh;
-  left: calc((100% - 49vh) / 2);
-  height: 16vh;
+  left: calc((100% - 46vh) / 2);
+  max-height: 14vh;
   z-index: 1;
+  margin-bottom: 2vh;
 }
 
 #name-box {
@@ -49,7 +50,7 @@ h1 {
   font-family: "Rampart One", cursive;
   color: orangered;
   font-size: 3vh;
-  margin: 20px 0;
+  margin: 4vh 0;
 }
 
 #name {
@@ -74,9 +75,10 @@ h1 {
   text-align: justify;
   display: block;
   padding: 15px 20px;
-  margin: 20px 150px;
+  margin: 20px auto;
   line-height: 3.5vh;
   font-size: 2.2vh;
+  max-width: 60vh;
 }
 
 #instructions > .intro-text {
@@ -147,6 +149,7 @@ button:hover,
 
 #hey {
   display: flex;
+  max-width: 50vh;
   color: rgba(64, 63, 63, 0.2);
   font-family: "Rampart One", cursive;
   font-size: 6vh;
@@ -160,9 +163,17 @@ button:hover,
 
 #go-message,
 #win-message {
-  font-size: 10vh;
+  font-size: 11vh;
   color: orangered;
   margin: 10px auto;
+  font-family: "Rampart One", cursive;
+  text-transform: uppercase;
+}
+
+.score-msg {
+  font-size: 7vh;
+  color: rgba(64, 63, 63, 0.2);
+  margin: 0 auto;
   font-family: "Rampart One", cursive;
   text-transform: uppercase;
 }
@@ -181,9 +192,7 @@ button:hover,
 
 #restart-button-go,
 #restart-button-gw {
-  flex: column;
   align-self: center;
-  justify-content: center;
 }
 
 .gif {
