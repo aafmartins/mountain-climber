@@ -15,9 +15,9 @@ class Player {
     this.ctx.drawImage(playerImg, this.x, this.y, this.width, this.height);
   }
 
-  move(event) {
-    event.preventDefault();
-    switch (event.keyCode) {
+  move(e) {
+    e.preventDefault();
+    switch (e.keyCode) {
       case 37:
         if (this.x > 0) this.x -= 15;
         break;

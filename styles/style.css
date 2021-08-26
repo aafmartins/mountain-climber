@@ -163,16 +163,17 @@ button:hover,
 
 #go-message,
 #win-message {
-  font-size: 11vh;
+  font-size: 9vh;
   color: orangered;
   margin: 10px auto;
   font-family: "Rampart One", cursive;
   text-transform: uppercase;
 }
 
-.score-msg {
-  font-size: 7vh;
-  color: rgba(64, 63, 63, 0.2);
+#score-go,
+#score-gw {
+  font-size: 6vh;
+  color: rgba(64, 63, 63, 0.5);
   margin: 0 auto;
   font-family: "Rampart One", cursive;
   text-transform: uppercase;
@@ -184,7 +185,7 @@ button:hover,
 }
 
 .highscores-list {
-  color: orangered;
+  color: rgba(64, 63, 63, 0.5);
   font-family: "Rampart One", cursive;
   text-transform: uppercase;
   font-size: 2.5vh;
@@ -198,7 +199,7 @@ button:hover,
 .gif {
   display: flex;
   justify-content: center;
-  margin: 20px;
+  margin-top: 20px;
 }
 
 .gif img {

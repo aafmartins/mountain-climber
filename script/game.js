@@ -26,9 +26,16 @@ class Game {
     );
     //Create other needed variables
     this.playerName = document.getElementById("name").value;
-    this.scoreMsg = document.querySelector(".score-msg");
+    this.scoreGO = document.getElementById("score-go");
+    this.scoreGW = document.getElementById("score-gw");
     this.gameWinMsg = document.getElementById("win-message");
     this.gameOverMsg = document.getElementById("go-message");
+    this.firstPlaceGO = document.getElementById("first-place-go");
+    this.secondPlaceGO = document.getElementById("second-place-go");
+    this.thirdPlaceGW = document.getElementById("third-place-go");
+    this.firstPlaceGW = document.getElementById("first-place-gw");
+    this.secondPlaceGW = document.getElementById("second-place-gw");
+    this.thirdPlaceGO = document.getElementById("third-place-gw");
     this.frameId = null;
     this.obstacleId = null;
     this.bonusId = null;
@@ -38,6 +45,12 @@ class Game {
     this.numberOfAvoidedCollisions = 0;
     this.bonusArray = [];
     this.bonusPoints = 0;
+    this.highScores = [];
+    //Access local storage
+    this.localHighScores = JSON.parse(localStorage.getItem("highScores"));
+    if (this.localHighScores !== null) {
+      this.highScores = this.localHighScores;
+    }
     //Get sounds
     this.ouchSound = new Audio(
       "./audio/377560__yudena__argh-woman-bymondfisch89.ogg"
@@ -80,11 +93,11 @@ class Game {
       const bonusElement = new MovingComponent(
         this.ctx,
         bonusImg,
-        Math.abs(Math.random() * this.canvas.width - 100), // position x
-        0, //position y - objects will be coming from top of canvas
-        (40 / 500) * this.canvas.width, //width
-        (40 / 700) * this.canvas.height, //height
-        Math.ceil(Math.random() * 1) //speed
+        Math.abs(Math.random() * this.canvas.width - 100),
+        0,
+        (40 / 500) * this.canvas.width,
+        (40 / 700) * this.canvas.height,
+        Math.ceil(Math.random() * 1)
       );
       this.bonusArray.push(bonusElement);
     }, 4 * 1000);
@@ -92,18 +105,16 @@ class Game {
 
   checkCollision(obstacle) {
     let collision =
-      this.player.x < obstacle.x + obstacle.width && //check that the left of the player intersects the right side of the obstacle
-      this.player.x + this.player.width > obstacle.x && // check that the right of the player intersects with teh left of the obstacle
+      this.player.x < obstacle.x + obstacle.width &&
+      this.player.x + this.player.width > obstacle.x &&
       this.player.y < obstacle.y + obstacle.height &&
       this.player.y + this.player.height > obstacle.y;
 
     if (collision) {
-      this.obstacleArray.splice(obstacle, 1);
+      this.obstacleArray.splice(this.obstacleArray.indexOf(obstacle), 1);
       this.ouchSound.play();
       this.numberOfCollisions++;
-      //decrement score
       this.score -= 5;
-      //remove bonus points
       if (this.bonusPoints > 0) {
         this.bonusPoints--;
       }
@@ -114,7 +125,7 @@ class Game {
     let avoidedCollision = obstacle.y > this.canvas.height;
 
     if (avoidedCollision) {
-      this.obstacleArray.splice(obstacle, 1);
+      this.obstacleArray.splice(this.obstacleArray.indexOf(obstacle), 1);
       this.numberOfAvoidedCollisions++;
       this.score += 5;
     }
@@ -122,26 +133,26 @@ class Game {
 
   checkCatches(bonus) {
     let caught =
-      this.player.x < bonus.x + bonus.width && //check that the left of the player intersects the right side of the obstacle
-      this.player.x + this.player.width > bonus.x && // check that the right of the player intersects with teh left of the obstacle
+      this.player.x < bonus.x + bonus.width &&
+      this.player.x + this.player.width > bonus.x &&
       this.player.y < bonus.y + bonus.height &&
       this.player.y + this.player.height > bonus.y;
 
     if (caught) {
-      this.bonusArray.splice(bonus, 1);
+      this.bonusArray.splice(this.bonusArray.indexOf(bonus), 1);
       this.catchSound.play();
-      //increment bonus points
       this.bonusPoints++;
-      //increment score points
       this.score += 5;
     }
   }
 
   //EASTER EGG
-
   //Create cheat action
   help() {
-    this.canvas.addEventListener("mousedown", () => this.score++);
+    this.canvas.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      this.score++;
+    });
   }
 
   //Check correct cheat code
@@ -159,6 +170,53 @@ class Game {
     });
   }
 
+  // Update highscores
+  updateHighScores(playerName, playerScore) {
+    if (this.highScores.length < 3) {
+      this.highScores.push({ name: playerName, score: playerScore });
+    } else {
+      //Find lowest score in the highScores array
+      let minPlayerScore;
+      for (let i = 0; i < this.highScores.length; i++) {
+        if (minPlayerScore == null) {
+          minPlayerScore = this.highScores[i];
+        }
+        if (this.highScores[i].score < minPlayerScore.score) {
+          minPlayerScore = this.highScores[i];
+        }
+      }
+      //Compare lowest score with new score
+      if (playerScore > minPlayerScore.score) {
+        //If new score is higher, splice lowest score and add new score to the highScores array
+        this.highScores.splice(this.highScores.indexOf(minPlayerScore), 1, {
+          name: playerName,
+          score: playerScore,
+        });
+      }
+    }
+    //Save highScores array to local storage
+    localStorage.setItem("highScores", JSON.stringify(this.highScores));
+  }
+
+  drawHighScores() {
+    let orderedScores = this.highScores.sort((a, b) => {
+      return b.score - a.score;
+    });
+
+    if (orderedScores[0]) {
+      this.firstPlaceGO.innerText = `${orderedScores[0].name} ... ${orderedScores[0].score}`;
+      this.firstPlaceGW.innerText = `${orderedScores[0].name} ... ${orderedScores[0].score}`;
+    }
+    if (orderedScores[1]) {
+      this.secondPlaceGO.innerText = `${orderedScores[1].name} ... ${orderedScores[1].score}`;
+      this.secondPlaceGW.innerText = `${orderedScores[1].name} ... ${orderedScores[1].score}`;
+    }
+    if (orderedScores[2]) {
+      this.thirdPlaceGO.innerText = `${orderedScores[2].name} ... ${orderedScores[2].score}`;
+      this.thirdPlaceGW.innerText = `${orderedScores[2].name} ... ${orderedScores[2].score}`;
+    }
+  }
+
   drawScore() {
     const score = document.getElementById("add-score");
     score.innerText = `${this.score}`;
@@ -169,41 +227,10 @@ class Game {
     health.innerText = `${this.bonusPoints}`;
   }
 
-  updateHighScore(playerName, playerScore) {
-    // const highScores = [{name: palyersName, score: 1214}, {name: palyersName, score:124124}, {name: palyersName, score:1241422}]
-
-    let highScores = JSON.parse(localStorage.getItem("highscores"));
-
-    if (playerScore > highScores[0])
-      highScores = [{ name: playerName, score: playerScore }].concat(
-        highScores.slice(0, 2)
-      );
-
-    if (playerScore < highScores[0] && playerScore > highScores[1])
-      highScores = highScores
-        .slice(0, 1)
-        .concat([{ name: playerName, score: playerScore }])
-        .concat(highScores.slice(1, 1));
-
-    if (
-      playerScore < highScores[0] &&
-      playerScore < highScores[1] &&
-      playerScore > highScores[2]
-    )
-      highScores = highScores.splice(2, 1, {
-        name: playerName,
-        score: playerScore,
-      });
-    localStorage.setItem("highscores", JSON.stringify(highScores));
-  }
-
-  getHighScores() {
-    return localStorage.setItem("highscores", JSON.stringify(highScores));
-  }
-
   checkGameOver() {
     if (this.numberOfCollisions > 0 && this.bonusPoints < 1) {
       this.backgroundSound.stop();
+      this.updateHighScores(this.playerName, this.score);
       cancelAnimationFrame(this.frameId);
       clearInterval(this.obstacleId);
       clearInterval(this.bonusId);
@@ -211,15 +238,17 @@ class Game {
       if (this.playerName) {
         this.gameOverMsg.innerText = `Game over, ${this.playerName}!`;
       }
-      this.scoreMsg.innerText = `Your score is ${this.score}`;
+      this.scoreGO.innerText = `Your score is ${this.score}`;
+      this.drawHighScores();
       this.gameState.style.display = "none";
       this.gameOverState.style.display = "block";
     }
   }
 
   checkGameWin() {
-    if (this.numberOfAvoidedCollisions > 50) {
+    if (this.numberOfAvoidedCollisions > 10) {
       this.backgroundSound.stop();
+      this.updateHighScores(this.playerName, this.score);
       cancelAnimationFrame(this.frameId);
       clearInterval(this.obstacleId);
       clearInterval(this.bonusId);
@@ -227,7 +256,8 @@ class Game {
       if (this.playerName) {
         this.gameWinMsg.innerText = `${this.playerName}, you won!`;
       }
-      this.scoreMsg.innerText = `Your score is ${this.score}`;
+      this.scoreGW.innerText = `Your score is ${this.score}`;
+      this.drawHighScores();
       this.gameState.style.display = "none";
       this.gameWonState.style.display = "block";
     }
@@ -264,9 +294,6 @@ class Game {
     //5-Check game-over and game-won conditions
     this.checkGameWin();
     this.checkGameOver();
-
-    //6-Update high scores
-    //this.updateHighScore(this.playerName, this.playerScore);
   }
 
   gameInitialization() {
@@ -283,6 +310,9 @@ class Game {
     this.setBonusInterval();
     this.backgroundSound.play();
     this.askForHelp();
-    window.addEventListener("keydown", (event) => this.player.move(event));
+    window.addEventListener("keydown", (e) => {
+      e.preventDefault();
+      this.player.move(e);
+    });
   }
 }

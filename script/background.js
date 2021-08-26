@@ -29,9 +29,9 @@ class Background {
       this.canvasWidth,
       this.canvasHeight
     );
-    // update image height
+    //update image height
     this.bgImgY += this.scrollSpeed;
-    // reset the images when the first image entirely exits the screen
+    //reset the images when the first image entirely exits the screen
     if (this.bgImgY == this.canvasHeight) this.bgImgY = 0;
   }
 }
