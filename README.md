@@ -43,14 +43,14 @@ Let's climb!
 
 ## Data structure
 
-# script.js
+### script.js
 
 - buildsplashScreen () {}
 - buildgameScreen () {}
 - buildgameoverScreen () {}
 - buildwinScreen () {}
 
-# game.js
+### game.js
 
 - game () {}
 - starLoop () {}
@@ -61,7 +61,7 @@ Let's climb!
 - gameOver () {}
 - gameWon () {}
 
-# background.js
+### background.js
 
 - background () {
   this.ctx
@@ -73,7 +73,7 @@ Let's climb!
   }
 - drawLoop () {}
 
-# components.js
+### components.js
 
 - components () {
   this.ctx
@@ -85,7 +85,7 @@ Let's climb!
   }
 - draw () {}
 
-# player.js
+### player.js
 
 - extend components () {
   }
@@ -98,7 +98,7 @@ Let's climb!
 - gameoverScreen
 - winScreen
 
-## Task
+## Tasks
 
 - script - buildDom
 - script - buildSplashScreen
@@ -121,7 +121,7 @@ Let's climb!
 
 ## Copyrights
 
-# Images
+### Images
 
 [Web Vectors by Vecteezy](https://www.vecteezy.com/free-vector/web)
 
@@ -136,6 +136,8 @@ Let's climb!
 [Bonus sound](https://freesound.org/s/387232/)
 
 [Game-over jingle](https://freesound.org/s/173859/)
+
+## Links
 
 ### Trello
 
