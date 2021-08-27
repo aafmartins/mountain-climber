@@ -8,7 +8,7 @@ Climb on!
 
 But beware, to get to the top of the mountain you'll need to dodge falling debris. The more rocks you're able to avoid, the more points you'll earn, but you can only survive a hit if you have a helmet! Catch the falling helmets to earn life points and increase your score.
 
-Can you make it? And will you find any *help* along the way? 🥁 🥁 🥁
+Can you make it? And will you find any _help_ along the way? 🥁 🥁 🥁
 
 Let's climb!
 
@@ -22,7 +22,7 @@ Let's climb!
 - The player wins when they escape 50 rocks;
 - If the player gets hit by a rock, they loose, the game ends.
 
-## Backlog
+## Items accomplished from backlog
 
 - Add bonus component: helmets fall at random from top of canvas, if caught, the player wins 5 points and 1 bonus point (i.e. an extra life).
 - Add scored points and helmets caught to game state;
@@ -35,6 +35,9 @@ Let's climb!
 - Add name prompt to splash page
 - Add personalization throughout the game
 - Add high scores at game-over/game-won states
+
+## Backlog
+
 - Add player movement simulation by reversing image;
 - Add background image to game state
 
@@ -88,7 +91,7 @@ Let's climb!
   }
 - move () {}
 
-## States y States Transitions
+## States & State Transitions
 
 - splashScreen: >> name prompt >> introduction >> instructions
 - gameScreen
@@ -115,6 +118,24 @@ Let's climb!
 - script - addEventListener
 - script - buildGameScreen
 - script - buildGameOverScreen
+
+## Copyrights
+
+# Images
+
+[Web Vectors by Vecteezy](https://www.vecteezy.com/free-vector/web)
+
+[Designed by macrovector / Freepik ](http://www.freepik.com)
+
+[Background music](https://freesound.org/s/564912/)
+
+[Game-win jingle](https://freesound.org/s/270402/)
+
+[Argh sound](https://freesound.org/s/377560/)
+
+[Bonus sound](https://freesound.org/s/387232/)
+
+[Game-over jingle](https://freesound.org/s/173859/)
 
 ### Trello
 
